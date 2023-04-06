@@ -20,11 +20,23 @@ public class Session {
     return sessID;
   }
 
+  public int getNumSess() {
+    return numSess;
+  }
+
   public void setPopularity(int p) {
     popularity = p;
   }
 
   public int getPopularity() {
     return popularity;
+  }
+
+  public void incrementNumSess() {
+    numSess++;
+  }
+
+  public void subtractPopularity() {
+    popularity = popularity-16;
   }
 }

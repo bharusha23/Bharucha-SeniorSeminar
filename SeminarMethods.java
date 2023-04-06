@@ -6,6 +6,8 @@ import java.util.*; // Import the Scanner class to read text files & import Arra
 public class SeminarMethods {
   ArrayList<Student> studentList = new ArrayList <Student>();
   ArrayList<Session> sessionList = new ArrayList<Session>();
+  ArrayList<Session> sortedSessList;
+  Session[][]schedule = new Session[5][5];
   //Session a = new Session("", 0);
   //sessionList.add(a);
   
@@ -90,15 +92,56 @@ public class SeminarMethods {
         }//close for
       }//close for
       sessionList.get(i).setPopularity(count);
-      System.out.println(sessionList.get(i).getSessID());
-      System.out.println(sessionList.get(i).getPopularity());
     }//close for
   }//close findPopSess
 
-  public void sortSess() {
-    
+  public void sortSess(ArrayList<Session> sessList) {
+    sortedSessList = new ArrayList<Session>();
+    for (Session a : sessList) {
+      sortedSessList.add(a);
+    }//close for each
+    int size = sortedSessList.size();
+    for (int s = 0; s<size-1; s++) {
+      int max = s;
+      for (int i = s+1; i<size; i++) {
+        if (sortedSessList.get(i).getPopularity()>sortedSessList.get(max).getPopularity()) {
+          max = i;
+        }//close if
+      }//close inner for
+      Session x = sortedSessList.get(s);
+      sortedSessList.set(s, sortedSessList.get(max));
+      sortedSessList.set(max, x);
+    }//close outer for
+  }//close sortSess
+
+  public void placeSess(ArrayList<Session> sortedSessList, int r) {
+    int room = r;
+    int sessionCounter = 0;
+    for (int time = 0; time<5; time++) {
+      schedule[time][room] = sortedSessList.get(sessionCounter);
+      sortedSessList.get(sessionCounter).incrementNumSess();
+      sortedSessList.get(sessionCounter).subtractPopularity();
+      if (sortedSessList.get(sessionCounter).getNumSess() > 1) {
+        sortedSessList.remove(sessionCounter);
+        sessionCounter--;
+      }//close if
+      sessionCounter++;
+    }//close for
+  }//close placeSess
+
+  public void makeSchedule() {
+    sortSess(sessionList);
+    placeSess(sortedSessList, 0);
+    sortSess(sortedSessList);
+    placeSess(sortedSessList, 1);
+    sortSess(sortedSessList);
+    placeSess(sortedSessList, 2);
+    sortSess(sortedSessList);
+    placeSess(sortedSessList, 3);
+    sortSess(sortedSessList);
+    placeSess(sortedSessList, 4);
+    System.out.println(schedule[4][4].getSessName());
   }
 
 
-  
 }//close SeminarMethods
