@@ -1,0 +1,9 @@
+My approach right now is to schedule the most popular classes (based on a non-weighted system) at different times. Then go through and place students in order of preferences into those slots. 
+
+Then I repeat that method, but the placement of students is priorotized for students who have not gotten their first choice
+
+Then we repeat, but placement is priorotized for students who haven't gotten their 1st or 2nd choice
+
+The main problem I see is that because I am not scheduling all the classes in the same timeslot at once, it will be harder to assign the next timeslot
+
+Maybe I could decide which sessions are when first and then assign students all at one go?
